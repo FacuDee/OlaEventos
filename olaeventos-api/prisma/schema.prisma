@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Evento {
+  id           Int        @id @default(autoincrement())
+  titulo       String
+  fecha        DateTime
+  imagenUrl    String
+  linkEntrada  String
+  tipoEvento   TipoEvento @relation(fields: [tipoEventoId], references: [id])
+  tipoEventoId Int
+  lugar        Lugar      @relation(fields: [lugarId], references: [id])
+  lugarId      Int
+}
+
+model Lugar {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  direccion String
+  tipo      String
+  eventos   Evento[]
+}
+
+model TipoEvento {
+  id      Int      @id @default(autoincrement())
+  nombre  String
+  eventos Evento[]
+}
+
