@@ -1,32 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 function FormularioEvento({ onEventoCreado }) {
   const [lugares, setLugares] = useState([]);
   const [tipos, setTipos] = useState([]);
   const [formData, setFormData] = useState({
-    titulo: '',
-    fecha: '',
-    imagenUrl: '',
-    linkEntrada: '',
-    lugarId: '',
-    tipoEventoId: '',
+    titulo: "",
+    fecha: "",
+    imagenUrl: "",
+    linkEntrada: "",
+    lugarId: "",
+    tipoEventoId: "",
   });
 
   useEffect(() => {
-    fetch('http://localhost:3000/lugares')
-      .then(res => res.json())
+    fetch("http://localhost:3000/lugares")
+      .then((res) => res.json())
       .then(setLugares);
-    fetch('http://localhost:3000/tipo-evento')
-      .then(res => res.json())
+    fetch("http://localhost:3000/tipo-evento")
+      .then((res) => res.json())
       .then(setTipos);
   }, []);
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const dataEnviar = {
@@ -36,29 +36,29 @@ function FormularioEvento({ onEventoCreado }) {
     };
 
     try {
-      const res = await fetch('http://localhost:3000/eventos', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("http://localhost:3000/eventos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(dataEnviar),
       });
 
-      if (!res.ok) throw new Error('Error al crear evento');
+      if (!res.ok) throw new Error("Error al crear evento");
 
       const nuevoEvento = await res.json();
       onEventoCreado(nuevoEvento);
 
       // Limpiar formulario
       setFormData({
-        titulo: '',
-        fecha: '',
-        imagenUrl: '',
-        linkEntrada: '',
-        lugarId: '',
-        tipoEventoId: '',
+        titulo: "",
+        fecha: "",
+        imagenUrl: "",
+        linkEntrada: "",
+        lugarId: "",
+        tipoEventoId: "",
       });
     } catch (err) {
       console.error(err);
-      alert('Hubo un error al cargar el evento.');
+      alert("Hubo un error al cargar el evento.");
     }
   };
 
@@ -66,13 +66,26 @@ function FormularioEvento({ onEventoCreado }) {
     <form
       className="p-4 rounded shadow mb-5"
       style={{
-        backgroundColor: '#1e1e1e',
-        color: 'white',
-        border: '1px solid #444',
+        backgroundColor: "#1e1e1e",
+        color: "white",
+        border: "1px solid #444",
       }}
       onSubmit={handleSubmit}
     >
-      <h4 className="mb-3 text-light">📅 Cargar nuevo evento</h4>
+      <h4 className="mb-3 text-light">
+        <img
+          src="./../public/event_icon.png"
+          alt="Icono evento"
+          style={{
+            width: "30px",
+            height: "30px",
+            marginRight: "8px",
+            verticalAlign: "middle",
+            filter: "brightness(0) invert(1)" /* Negro → Blanco */,
+          }}
+        />
+        Cargar nuevo evento
+      </h4>
 
       <div className="mb-3">
         <label className="form-label">Título</label>
@@ -132,7 +145,7 @@ function FormularioEvento({ onEventoCreado }) {
           required
         >
           <option value="">Seleccionar lugar</option>
-          {lugares.map(lugar => (
+          {lugares.map((lugar) => (
             <option key={lugar.id} value={lugar.id}>
               {lugar.nombre}
             </option>
@@ -150,7 +163,7 @@ function FormularioEvento({ onEventoCreado }) {
           required
         >
           <option value="">Seleccionar tipo</option>
-          {tipos.map(tipo => (
+          {tipos.map((tipo) => (
             <option key={tipo.id} value={tipo.id}>
               {tipo.nombre}
             </option>

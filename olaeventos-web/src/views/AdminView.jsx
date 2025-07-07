@@ -56,7 +56,7 @@ function Admin() {
   return (
     <div
       className="container-fluid bg-dark text-white min-vh-100 p-4"
-      style={{ fontFamily: "Arial, sans-serif" }}
+      // style={{ fontFamily: "Arial, sans-serif" }}
     >
       <h2 className="mb-4 text-secondary">Administrar Eventos</h2>
 
@@ -103,7 +103,7 @@ function Admin() {
                 <td>{evento.tipoEvento.nombre}</td>
                 <td>
                   <button
-                    className="btn btn-sm btn-warning me-2"
+                    className="btn btn-sm btn-secondary me-2"
                     onClick={() => handleEditarClick(evento)}
                   >
                     Editar

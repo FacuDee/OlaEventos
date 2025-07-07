@@ -41,9 +41,9 @@ function EventoCard({ evento }) {
               href={evento.linkEntrada}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-danger w-100"
+              className="btn btn-secondary w-100"
             >
-              Comprar entradas
+              COMPRÁ TU ENTRADA
             </a>
           </div>
         </div>

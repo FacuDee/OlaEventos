@@ -5,8 +5,21 @@ function NavBar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
       <Link className="navbar-brand text-warning fw-bold" to="/">
-        <span class="half-logo">Ola</span>Eventos
-      </Link>
+  <span className="half-logo">
+    <img 
+      src="/event_icon.png" 
+      alt=""
+      style={{
+        height: "1em",
+        marginRight: "5px",
+        filter: "brightness(0) invert(1)", // Convierte a blanco
+        verticalAlign: "middle"
+      }}
+    />
+    Ola
+  </span>
+  Eventos
+</Link>
       <button
         className="navbar-toggler"
         type="button"
