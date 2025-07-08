@@ -39,3 +39,10 @@ model TipoEvento {
   eventos Evento[]
 }
 
+model Usuario {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+  nombre   String
+}
+

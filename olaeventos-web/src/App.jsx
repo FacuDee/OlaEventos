@@ -1,18 +1,45 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import NavBar from './components/NavBar';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import PrivateRoute from './components/PrivateRoute';
+import Layout from './components/Layout';
+
 import Home from './views/Home';
 import Admin from './views/AdminView';
+import Login from './views/Login';
+import Register from "./views/Register";
+
+function AppRoutes() {
+  const location = useLocation();
+  const hideLayout = ["/login", "/register"].includes(location.pathname);
+
+  return (
+    hideLayout ? (
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="*" element={<Login />} />
+      </Routes>
+    ) : (
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/admin" element={<Admin />} />
+          </Route>
+        </Routes>
+      </Layout>
+    )
+  );
+}
 
 function App() {
   return (
-    <BrowserRouter>
-      <NavBar /> {/* Aquí lo pones una vez */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/admin" element={<Admin />} />
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <Router>
+        <AppRoutes />
+      </Router>
+    </AuthProvider>
   );
 }
 

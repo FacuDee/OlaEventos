@@ -26,8 +26,7 @@ form {
 
 .navbar-brand {
   font-family: Roboto, 'GFS Didot', serif;
-  font-size: 3rem;
-  padding: 0 1rem;
+  font-size: 2.5rem;
   color: white !important;
 }
 
@@ -50,13 +49,19 @@ form {
 
 button[type="submit"] {
   margin: 1rem 0;
-  font-family: Roboto, 'GFS Didot', serif;
   background-color: var(--primary-color);
   padding: 0.5rem 1rem;
-  font-size: 1.2rem;
   cursor: pointer;
 }
 
 h4 img {
   color: white;
+}
+
+.title-login {
+  color: var(--primary-color);
+}
+
+.btn-login {
+  background-color: var(--primary-color);
 }

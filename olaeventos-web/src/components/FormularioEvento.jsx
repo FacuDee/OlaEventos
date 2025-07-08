@@ -172,7 +172,7 @@ function FormularioEvento({ onEventoCreado }) {
       </div>
 
       <button type="submit" className="btn btn-warning w-100">
-        Crear evento
+        CREAR EVENTO
       </button>
     </form>
   );

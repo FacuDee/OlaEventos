@@ -1,23 +1,35 @@
 import React, { useEffect, useState } from "react";
 import EditarEventoModal from "../components/EditarEventoModal";
+import FormularioEvento from "../components/FormularioEvento";
 
 function Admin() {
   const [eventos, setEventos] = useState([]);
   const [eventoSeleccionado, setEventoSeleccionado] = useState(null);
   const [busqueda, setBusqueda] = useState("");
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);
 
   useEffect(() => {
     cargarEventos();
   }, []);
 
   const cargarEventos = async () => {
+    const token = localStorage.getItem("token");
     try {
-      const res = await fetch("http://localhost:3000/eventos");
+      const res = await fetch("http://localhost:3000/eventos", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await res.json();
       setEventos(data);
     } catch (error) {
-      console.error("Error cargando eventos:", error);
+      console.error(error);
     }
+  };
+
+  const handleEventoCreado = (nuevoEvento) => {
+    setEventos((prev) => [nuevoEvento, ...prev]);
+    setMostrarFormulario(false);
   };
 
   const handleEliminar = async (id) => {
@@ -58,7 +70,27 @@ function Admin() {
       className="container-fluid bg-dark text-white min-vh-100 p-4"
       // style={{ fontFamily: "Arial, sans-serif" }}
     >
-      <h2 className="mb-4 text-secondary">Administrar Eventos</h2>
+      <div className="d-flex align-items-center justify-content-between mb-4">
+        <h2 className="text-secondary mb-0">Administrar Eventos</h2>
+        <button
+          className="btn btn-outline-light"
+          onClick={() => setMostrarFormulario(!mostrarFormulario)}
+        >
+          {mostrarFormulario ? "✖️ Cancelar" : "➕ Nuevo Evento"}
+        </button>
+      </div>
+
+      <div
+        style={{
+          maxHeight: mostrarFormulario ? "1000px" : "0",
+          overflow: "hidden",
+          transition: "max-height 0.5s ease",
+        }}
+      >
+        {mostrarFormulario && (
+          <FormularioEvento onEventoCreado={handleEventoCreado} />
+        )}
+      </div>
 
       <div className="mb-3">
         <input
