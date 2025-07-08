@@ -54,7 +54,7 @@ function NavBar() {
               </li>
               <li className="nav-item">
                 <button
-                  className="btn btn-sm btn-outline-warning ms-3 mt-1"
+                  className="btn btn-sm btn-outline-warning mt-2 mb-2"
                   onClick={handleLogout}
                 >
                   Cerrar sesión

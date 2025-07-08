@@ -26,6 +26,7 @@ function FormularioEvento({ onEventoCreado }) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // filepath: [FormularioEvento.jsx](http://_vscodecontentref_/0)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -36,9 +37,13 @@ function FormularioEvento({ onEventoCreado }) {
     };
 
     try {
+      const token = localStorage.getItem("token");
       const res = await fetch("http://localhost:3000/eventos", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(dataEnviar),
       });
 

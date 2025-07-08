@@ -36,7 +36,13 @@ function Admin() {
     if (!window.confirm("¿Estás seguro que querés eliminar este evento?"))
       return;
     try {
-      await fetch(`http://localhost:3000/eventos/${id}`, { method: "DELETE" });
+      const token = localStorage.getItem("token");
+      await fetch(`http://localhost:3000/eventos/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setEventos((prev) => prev.filter((e) => e.id !== id));
     } catch (error) {
       console.error("Error eliminando evento:", error);
@@ -106,51 +112,53 @@ function Admin() {
       {eventosFiltrados.length === 0 ? (
         <p>No hay eventos para mostrar.</p>
       ) : (
-        <table className="table table-dark table-striped table-hover">
-          <thead>
-            <tr>
-              <th>Título</th>
-              <th>Fecha</th>
-              <th>Lugar</th>
-              <th>Tipo</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {eventosFiltrados.map((evento) => (
-              <tr key={evento.id}>
-                <td>{evento.titulo}</td>
-                <td>
-                  {new Date(evento.fecha).toLocaleString("es-AR", {
-                    weekday: "short",
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                    hour: "numeric",
-                    minute: "2-digit",
-                    hour12: true,
-                  })}
-                </td>
-                <td>{evento.lugar.nombre}</td>
-                <td>{evento.tipoEvento.nombre}</td>
-                <td>
-                  <button
-                    className="btn btn-sm btn-secondary me-2"
-                    onClick={() => handleEditarClick(evento)}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    className="btn btn-sm btn-danger"
-                    onClick={() => handleEliminar(evento.id)}
-                  >
-                    Eliminar
-                  </button>
-                </td>
+        <div className="table-responsive">
+          <table className="table table-dark table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Fecha</th>
+                <th>Lugar</th>
+                <th>Tipo</th>
+                <th>Acciones</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {eventosFiltrados.map((evento) => (
+                <tr key={evento.id}>
+                  <td>{evento.titulo}</td>
+                  <td>
+                    {new Date(evento.fecha).toLocaleString("es-AR", {
+                      weekday: "short",
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                      hour: "numeric",
+                      minute: "2-digit",
+                      hour12: true,
+                    })}
+                  </td>
+                  <td>{evento.lugar.nombre}</td>
+                  <td>{evento.tipoEvento.nombre}</td>
+                  <td>
+                    <button
+                      className="btn btn-sm btn-secondary me-2"
+                      onClick={() => handleEditarClick(evento)}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      className="btn btn-sm btn-danger"
+                      onClick={() => handleEliminar(evento.id)}
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
 
       {eventoSeleccionado && (
