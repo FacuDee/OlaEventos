@@ -1,13 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { join } from 'path';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-   // Habilitar CORS para permitir peticiones desde cualquier origen (o podés especificar el frontend)
   app.enableCors({
-    origin: 'http://localhost:5173' // o '*' para permitir todos los orígenes (menos seguro)
+    origin: 'http://localhost:5173',
+  });
+
+  app.useStaticAssets(join(__dirname, '..', 'banners'), {
+    prefix: '/banners',
   });
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));

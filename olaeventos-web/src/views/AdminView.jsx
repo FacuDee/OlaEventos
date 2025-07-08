@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import EditarEventoModal from "../components/EditarEventoModal";
 import FormularioEvento from "../components/FormularioEvento";
+import ConfirmDialog from "../components/ConfirmDialog";
 
 function Admin() {
   const [eventos, setEventos] = useState([]);
   const [eventoSeleccionado, setEventoSeleccionado] = useState(null);
   const [busqueda, setBusqueda] = useState("");
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  const [eventoAEliminar, setEventoAEliminar] = useState(null);
 
   useEffect(() => {
     cargarEventos();
@@ -32,18 +34,21 @@ function Admin() {
     setMostrarFormulario(false);
   };
 
-  const handleEliminar = async (id) => {
-    if (!window.confirm("¿Estás seguro que querés eliminar este evento?"))
-      return;
+  const confirmarEliminar = (evento) => {
+    setEventoAEliminar(evento);
+  };
+
+  const eliminarEvento = async () => {
     try {
       const token = localStorage.getItem("token");
-      await fetch(`http://localhost:3000/eventos/${id}`, {
+      await fetch(`http://localhost:3000/eventos/${eventoAEliminar.id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setEventos((prev) => prev.filter((e) => e.id !== id));
+      setEventos((prev) => prev.filter((e) => e.id !== eventoAEliminar.id));
+      setEventoAEliminar(null);
     } catch (error) {
       console.error("Error eliminando evento:", error);
     }
@@ -149,7 +154,7 @@ function Admin() {
                     </button>
                     <button
                       className="btn btn-sm btn-danger"
-                      onClick={() => handleEliminar(evento.id)}
+                      onClick={() => confirmarEliminar(evento)}
                     >
                       Eliminar
                     </button>
@@ -166,6 +171,14 @@ function Admin() {
           evento={eventoSeleccionado}
           onClose={handleCerrarModal}
           onSave={handleGuardarCambios}
+        />
+      )}
+
+      {eventoAEliminar && (
+        <ConfirmDialog
+          mensaje={`¿Estás seguro que querés eliminar "${eventoAEliminar.titulo}"?`}
+          onConfirmar={eliminarEvento}
+          onCancelar={() => setEventoAEliminar(null)}
         />
       )}
     </div>

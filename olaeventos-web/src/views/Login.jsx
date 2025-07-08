@@ -76,6 +76,7 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              autoComplete="current-password"
             />
           </div>
           <button className="btn-login btn btn-warning w-100">Ingresar</button>
