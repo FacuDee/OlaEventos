@@ -11,6 +11,10 @@ async function bootstrap() {
     origin: 'http://localhost:5173',
   });
 
+  app.useStaticAssets(join(__dirname, '..', 'lugar-images'), {
+    prefix: '/lugar-images',
+  });
+
   app.useStaticAssets(join(__dirname, '..', 'banners'), {
     prefix: '/banners',
   });

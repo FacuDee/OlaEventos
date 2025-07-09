@@ -8,13 +8,7 @@ export class LugarService {
 
   async crear(data: CreateLugarDto) {
     console.log('Datos recibidos para crear lugar:', data);
-    return this.prisma.lugar.create({
-      data: {
-        nombre: data.nombre,
-        direccion: data.direccion,
-        tipo: data.tipo,
-      },
-    });
+    return this.prisma.lugar.create({ data });
   }
 
   async obtenerTodos() {
@@ -29,6 +23,13 @@ export class LugarService {
       include: { eventos: true },
     });
   }
+
+  async actualizar(id: number, data: Partial<CreateLugarDto>) {
+  return this.prisma.lugar.update({
+    where: { id },
+    data,
+  });
+}
 
   async eliminar(id: number) {
     return this.prisma.lugar.delete({ where: { id } });

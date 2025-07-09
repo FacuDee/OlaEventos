@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsString, IsOptional } from 'class-validator';
 
 export class CreateLugarDto {
   @IsString()
@@ -9,4 +9,8 @@ export class CreateLugarDto {
 
   @IsString()
   tipo: string;
+
+  @IsString()
+  @IsOptional()
+  imagenUrl?: string;
 }

@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Delete, Param, Body, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { LugarService } from './lugar.service';
 import { CreateLugarDto } from './dto/create-lugar.dto';
 
@@ -8,7 +17,6 @@ export class LugarController {
 
   @Post()
   crear(@Body() dto: CreateLugarDto) {
-    console.log('DTO recibido:', dto);
     return this.lugarService.crear(dto);
   }
 
@@ -20,6 +28,14 @@ export class LugarController {
   @Get(':id')
   obtenerPorId(@Param('id', ParseIntPipe) id: number) {
     return this.lugarService.obtenerPorId(id);
+  }
+
+  @Put(':id')
+  actualizar(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: Partial<CreateLugarDto>, // podés usar Partial para permitir campos opcionales
+  ) {
+    return this.lugarService.actualizar(id, dto);
   }
 
   @Delete(':id')
