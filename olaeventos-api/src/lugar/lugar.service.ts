@@ -7,7 +7,14 @@ export class LugarService {
   constructor(private prisma: PrismaService) {}
 
   async crear(data: CreateLugarDto) {
-    return this.prisma.lugar.create({ data });
+    console.log('Datos recibidos para crear lugar:', data);
+    return this.prisma.lugar.create({
+      data: {
+        nombre: data.nombre,
+        direccion: data.direccion,
+        tipo: data.tipo,
+      },
+    });
   }
 
   async obtenerTodos() {

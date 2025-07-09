@@ -8,8 +8,6 @@ export class EventoService {
 
   async crearEvento(data: CreateEventoDto) {
     try {
-      console.log('Data recibida en crearEvento:', data);
-
       const eventoCreado = await this.prisma.evento.create({
         data: {
           titulo: data.titulo,

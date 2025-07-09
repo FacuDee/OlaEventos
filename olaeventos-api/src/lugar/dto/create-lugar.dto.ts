@@ -1,5 +1,12 @@
+import { IsString } from 'class-validator';
+
 export class CreateLugarDto {
+  @IsString()
   nombre: string;
+
+  @IsString()
   direccion: string;
-  tipo: string; // Ej: "Municipal", "Independiente"
+
+  @IsString()
+  tipo: string;
 }

@@ -19,10 +19,21 @@ function FormularioEvento({ onEventoCreado }) {
   useEffect(() => {
     fetch("http://localhost:3000/lugares")
       .then((res) => res.json())
-      .then(setLugares);
+      .then((lugares) => {
+        const ordenados = [...lugares].sort((a, b) =>
+          a.nombre.localeCompare(b.nombre)
+        );
+        setLugares(ordenados);
+      });
+
     fetch("http://localhost:3000/tipo-evento")
       .then((res) => res.json())
-      .then(setTipos);
+      .then((tipos) => {
+        const ordenados = [...tipos].sort((a, b) =>
+          a.nombre.localeCompare(b.nombre)
+        );
+        setTipos(ordenados);
+      });
   }, []);
 
   const handleChange = (e) => {
@@ -57,7 +68,6 @@ function FormularioEvento({ onEventoCreado }) {
       // Guardamos para mostrar mensaje primero
       setNuevoEventoGuardado(nuevoEvento);
       setMostrarExito(true);
-
     } catch (err) {
       console.error(err);
       alert("Hubo un error al cargar el evento.");

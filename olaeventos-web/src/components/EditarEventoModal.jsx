@@ -12,7 +12,13 @@ function EditarEventoModal({ evento, onClose, onSave }) {
   useEffect(() => {
     fetch("http://localhost:3000/lugares")
       .then((res) => res.json())
-      .then(setLugares);
+      .then((lugares) => {
+        const ordenados = [...lugares].sort((a, b) =>
+          a.nombre.localeCompare(b.nombre)
+        );
+        setLugares(ordenados);
+      });
+
     fetch("http://localhost:3000/tipo-evento")
       .then((res) => res.json())
       .then(setTipos);

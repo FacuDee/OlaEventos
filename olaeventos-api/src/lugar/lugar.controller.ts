@@ -8,6 +8,7 @@ export class LugarController {
 
   @Post()
   crear(@Body() dto: CreateLugarDto) {
+    console.log('DTO recibido:', dto);
     return this.lugarService.crear(dto);
   }
 
