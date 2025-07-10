@@ -39,9 +39,10 @@ function EventoCard({ evento }) {
             textAlign: "center",
             padding: "6px 0",
             borderRadius: "10px",
-            fontSize: "0.8rem",
+            fontSize: "0.9rem",
             zIndex: 2,
             boxShadow: "0 0 6px rgba(0,0,0,0.5)",
+            opacity: 0.95,
           }}
         >
           {new Date(evento.fecha).getDate().toString().padStart(2, "0")}{" "}

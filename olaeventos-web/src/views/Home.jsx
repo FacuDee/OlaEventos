@@ -26,7 +26,10 @@ function Home() {
   }, []);
 
   const lugaresMunicipales = lugares.filter((l) => l.tipo === "Municipal");
-  const lugaresIndependientes = lugares.filter((l) => l.tipo === "Independiente");
+  const lugaresIndependientes = lugares.filter(
+    (l) => l.tipo === "Independiente"
+  );
+  const lugaresPrivados = lugares.filter((lugar) => lugar.tipo === "Privado");
 
   const eventosAMostrar = eventos.slice(0, mostrarCantidad);
 
@@ -51,10 +54,15 @@ function Home() {
 
       <div className="row">
         {eventosAMostrar.length === 0 ? (
-          <p className="text-center text-muted w-100">No hay eventos cargados.</p>
+          <p className="text-center text-muted w-100">
+            No hay eventos cargados.
+          </p>
         ) : (
           eventosAMostrar.map((evento) => (
-            <div className="mb-4 col-md-6 col-lg-4 col-xl-3 d-flex" key={evento.id}>
+            <div
+              className="mb-4 col-md-6 col-lg-4 col-xl-3 d-flex"
+              key={evento.id}
+            >
               <EventoCard evento={evento} />
             </div>
           ))
@@ -76,7 +84,9 @@ function Home() {
         <h2 className="text-secondary mb-4">Espacios culturales</h2>
 
         {lugares.length === 0 ? (
-          <p className="text-muted text-center w-100">No hay espacios registrados.</p>
+          <p className="text-muted text-center w-100">
+            No hay espacios registrados.
+          </p>
         ) : (
           <>
             {lugaresMunicipales.length > 0 && (
@@ -90,6 +100,13 @@ function Home() {
               <>
                 <h4 className="text-warning mt-5 mb-3">Independientes</h4>
                 <LugarSlider lugares={lugaresIndependientes} />
+              </>
+            )}
+
+            {lugaresPrivados.length > 0 && (
+              <>
+                <h4 className="text-warning mt-5 mb-3">Privados</h4>
+                <LugarSlider lugares={lugaresPrivados} />
               </>
             )}
           </>

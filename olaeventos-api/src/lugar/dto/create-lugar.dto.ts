@@ -13,4 +13,9 @@ export class CreateLugarDto {
   @IsString()
   @IsOptional()
   imagenUrl?: string;
+
+  @IsString()
+  @IsOptional()
+  redSocial?: string;
 }
+

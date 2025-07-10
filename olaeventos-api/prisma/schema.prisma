@@ -31,6 +31,7 @@ model Lugar {
   direccion  String
   tipo       String
   imagenUrl  String?
+  redSocial  String?
   eventos    Evento[]
 }
 
