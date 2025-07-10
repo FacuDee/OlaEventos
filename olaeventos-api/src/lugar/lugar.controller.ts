@@ -33,7 +33,7 @@ export class LugarController {
   @Put(':id')
   actualizar(
     @Param('id', ParseIntPipe) id: number,
-    @Body() dto: Partial<CreateLugarDto>, // podés usar Partial para permitir campos opcionales
+    @Body() dto: Partial<CreateLugarDto>,
   ) {
     return this.lugarService.actualizar(id, dto);
   }

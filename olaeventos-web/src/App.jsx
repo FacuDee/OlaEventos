@@ -5,7 +5,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Layout from './components/Layout';
 
 import Home from './views/Home';
-import Admin from './views/AdminView';
+import Admin from './views/Admin';
 import Login from './views/Login';
 import Register from "./views/Register";
 
