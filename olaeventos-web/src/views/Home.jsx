@@ -73,7 +73,7 @@ function Home() {
         <div className="text-center mb-4">
           <button
             className="btn btn-outline-warning mt-3"
-            onClick={() => setMostrarCantidad(mostrarCantidad + 8)}
+            onClick={() => setMostrarCantidad(mostrarCantidad + 4)}
           >
             Mostrar más
           </button>

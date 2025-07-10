@@ -8,7 +8,7 @@ function LugaresAdminSection({ lugares, setLugares }) {
   const [busquedaLugar, setBusquedaLugar] = useState("");
   const [lugarAEditar, setLugarAEditar] = useState(null);
   const [lugarAEliminar, setLugarAEliminar] = useState(null);
-  const [mostrarExito, setMostrarExito] = useState(false);
+  const [paginaActual, setPaginaActual] = useState(1);
 
   const lugaresFiltrados = lugares.filter(
     (lugar) =>
@@ -16,10 +16,23 @@ function LugaresAdminSection({ lugares, setLugares }) {
       lugar.tipo.toLowerCase().includes(busquedaLugar.toLowerCase())
   );
 
+  const lugaresPorPagina = 10;
+  const totalPaginas = Math.ceil(lugaresFiltrados.length / lugaresPorPagina);
+  const lugaresVisibles = lugaresFiltrados.slice(
+    (paginaActual - 1) * lugaresPorPagina,
+    paginaActual * lugaresPorPagina
+  );
+
+  const cambiarPagina = (nuevaPagina) => {
+    if (nuevaPagina >= 1 && nuevaPagina <= totalPaginas) {
+      setPaginaActual(nuevaPagina);
+    }
+  };
+
   const handleLugarCreado = (nuevoLugar) => {
     setLugares((prev) => [nuevoLugar, ...prev]);
     setMostrarFormularioLugar(false);
-    setMostrarExito(true);
+    setPaginaActual(1);
   };
 
   const handleGuardarLugarEditado = (lugarActualizado) => {
@@ -75,7 +88,10 @@ function LugaresAdminSection({ lugares, setLugares }) {
           placeholder="Buscar por nombre o tipo..."
           className="form-control"
           value={busquedaLugar}
-          onChange={(e) => setBusquedaLugar(e.target.value)}
+          onChange={(e) => {
+            setBusquedaLugar(e.target.value);
+            setPaginaActual(1);
+          }}
           style={{ maxWidth: "400px" }}
         />
       </div>
@@ -91,7 +107,7 @@ function LugaresAdminSection({ lugares, setLugares }) {
             </tr>
           </thead>
           <tbody>
-            {lugaresFiltrados.map((lugar) => (
+            {lugaresVisibles.map((lugar) => (
               <tr key={lugar.id}>
                 <td>{lugar.nombre}</td>
                 <td>{lugar.direccion}</td>
@@ -116,6 +132,39 @@ function LugaresAdminSection({ lugares, setLugares }) {
         </table>
       </div>
 
+      {/* Controles de paginación */}
+      {totalPaginas > 1 && (
+        <div className="d-flex justify-content-center mt-3 gap-2">
+          <button
+            className="btn btn-sm btn-outline-light"
+            disabled={paginaActual === 1}
+            onClick={() => cambiarPagina(paginaActual - 1)}
+          >
+            ◀ Anterior
+          </button>
+          {[...Array(totalPaginas)].map((_, i) => (
+            <button
+              key={i}
+              className={`btn btn-sm ${
+                i + 1 === paginaActual
+                  ? "btn-warning"
+                  : "btn-outline-light"
+              }`}
+              onClick={() => cambiarPagina(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button
+            className="btn btn-sm btn-outline-light"
+            disabled={paginaActual === totalPaginas}
+            onClick={() => cambiarPagina(paginaActual + 1)}
+          >
+            Siguiente ▶
+          </button>
+        </div>
+      )}
+
       {lugarAEditar && (
         <EditarLugarModal
           lugar={lugarAEditar}
@@ -129,13 +178,6 @@ function LugaresAdminSection({ lugares, setLugares }) {
           mensaje={`¿Estás seguro que querés eliminar "${lugarAEliminar.nombre}"?`}
           onConfirmar={eliminarLugar}
           onCancelar={() => setLugarAEliminar(null)}
-        />
-      )}
-
-      {mostrarExito && (
-        <ConfirmDialog
-          mensaje="¡Lugar creado correctamente!"
-          onConfirmar={() => setMostrarExito(false)}
         />
       )}
     </>

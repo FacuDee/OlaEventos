@@ -8,7 +8,7 @@ function EventosAdminSection({ eventos, setEventos }) {
   const [busqueda, setBusqueda] = useState("");
   const [eventoSeleccionado, setEventoSeleccionado] = useState(null);
   const [eventoAEliminar, setEventoAEliminar] = useState(null);
-  const [mostrarExito, setMostrarExito] = useState(false);
+  const [paginaActual, setPaginaActual] = useState(1);
 
   const eventosFiltrados = eventos.filter(
     (evento) =>
@@ -16,10 +16,23 @@ function EventosAdminSection({ eventos, setEventos }) {
       evento.lugar.nombre.toLowerCase().includes(busqueda.toLowerCase())
   );
 
+  const eventosPorPagina = 10;
+  const totalPaginas = Math.ceil(eventosFiltrados.length / eventosPorPagina);
+  const eventosVisibles = eventosFiltrados.slice(
+    (paginaActual - 1) * eventosPorPagina,
+    paginaActual * eventosPorPagina
+  );
+
+  const cambiarPagina = (nuevaPagina) => {
+    if (nuevaPagina >= 1 && nuevaPagina <= totalPaginas) {
+      setPaginaActual(nuevaPagina);
+    }
+  };
+
   const handleEventoCreado = (nuevoEvento) => {
     setEventos((prev) => [nuevoEvento, ...prev]);
     setMostrarFormulario(false);
-    setMostrarExito(true);
+    setPaginaActual(1);
   };
 
   const handleGuardarCambios = (eventoActualizado) => {
@@ -75,7 +88,10 @@ function EventosAdminSection({ eventos, setEventos }) {
           placeholder="Buscar por título o lugar..."
           className="form-control"
           value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
+          onChange={(e) => {
+            setBusqueda(e.target.value);
+            setPaginaActual(1);
+          }}
           style={{ maxWidth: "400px" }}
         />
       </div>
@@ -92,7 +108,7 @@ function EventosAdminSection({ eventos, setEventos }) {
             </tr>
           </thead>
           <tbody>
-            {eventosFiltrados.map((evento) => (
+            {eventosVisibles.map((evento) => (
               <tr key={evento.id}>
                 <td>{evento.titulo}</td>
                 <td>
@@ -128,6 +144,39 @@ function EventosAdminSection({ eventos, setEventos }) {
         </table>
       </div>
 
+      {/* Controles de paginación */}
+      {totalPaginas > 1 && (
+        <div className="d-flex justify-content-center mt-3 gap-2">
+          <button
+            className="btn btn-sm btn-outline-light"
+            disabled={paginaActual === 1}
+            onClick={() => cambiarPagina(paginaActual - 1)}
+          >
+            ◀ Anterior
+          </button>
+          {[...Array(totalPaginas)].map((_, i) => (
+            <button
+              key={i}
+              className={`btn btn-sm ${
+                i + 1 === paginaActual
+                  ? "btn-warning"
+                  : "btn-outline-light"
+              }`}
+              onClick={() => cambiarPagina(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button
+            className="btn btn-sm btn-outline-light"
+            disabled={paginaActual === totalPaginas}
+            onClick={() => cambiarPagina(paginaActual + 1)}
+          >
+            Siguiente ▶
+          </button>
+        </div>
+      )}
+
       {eventoSeleccionado && (
         <EditarEventoModal
           evento={eventoSeleccionado}
@@ -141,13 +190,6 @@ function EventosAdminSection({ eventos, setEventos }) {
           mensaje={`¿Estás seguro que querés eliminar "${eventoAEliminar.titulo}"?`}
           onConfirmar={eliminarEvento}
           onCancelar={() => setEventoAEliminar(null)}
-        />
-      )}
-
-      {mostrarExito && (
-        <ConfirmDialog
-          mensaje="¡Evento creado correctamente!"
-          onConfirmar={() => setMostrarExito(false)}
         />
       )}
     </>
