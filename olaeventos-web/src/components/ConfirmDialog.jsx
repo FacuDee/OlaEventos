@@ -1,6 +1,6 @@
 import React from "react";
 
-function ConfirmDialog({ mensaje, onConfirmar, onCancelar }) {
+function ConfirmDialog({ mensaje, onConfirmar, onCancelar, soloConfirmar = false }) {
   return (
     <div
       className="modal d-block"
@@ -10,34 +10,29 @@ function ConfirmDialog({ mensaje, onConfirmar, onCancelar }) {
         backgroundColor: "rgba(0, 0, 0, 0.6)",
       }}
     >
-      <div
-        className="modal-dialog modal-dialog-centered"
-        role="document"
-      >
+      <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content bg-dark text-white border border-warning">
           <div className="modal-header">
             <h5 className="modal-title text-warning">Mensaje:</h5>
-            <button
-              type="button"
-              className="btn-close btn-close-white"
-              aria-label="Cerrar"
-              onClick={onCancelar}
-            ></button>
+            {!soloConfirmar && (
+              <button
+                type="button"
+                className="btn-close btn-close-white"
+                aria-label="Cerrar"
+                onClick={onCancelar}
+              />
+            )}
           </div>
           <div className="modal-body">
             <p>{mensaje}</p>
           </div>
           <div className="modal-footer">
-            <button
-              className="btn btn-secondary"
-              onClick={onCancelar}
-            >
-              Cancelar
-            </button>
-            <button
-              className="btn btn-danger"
-              onClick={onConfirmar}
-            >
+            {!soloConfirmar && (
+              <button className="btn btn-secondary" onClick={onCancelar}>
+                Cancelar
+              </button>
+            )}
+            <button className="btn btn-danger" onClick={onConfirmar}>
               Ok
             </button>
           </div>

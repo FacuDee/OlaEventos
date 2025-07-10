@@ -1,13 +1,13 @@
-// ...existing imports...
 import React, { useEffect, useState } from "react";
 import EventoCard from "../components/EventoCard";
-import LugarCard from "../components/LugarCard";
+import LugarSlider from "../components/LugarSlider";
 import PublicidadCarousel from "../components/PublicidadCarousel";
 
 function Home() {
   const [eventos, setEventos] = useState([]);
   const [publicidades, setPublicidades] = useState([]);
   const [lugares, setLugares] = useState([]);
+  const [mostrarCantidad, setMostrarCantidad] = useState(8);
 
   useEffect(() => {
     fetch("http://localhost:3000/eventos")
@@ -25,6 +25,11 @@ function Home() {
       .catch(() => setLugares([]));
   }, []);
 
+  const lugaresMunicipales = lugares.filter((l) => l.tipo === "Municipal");
+  const lugaresIndependientes = lugares.filter((l) => l.tipo === "Independiente");
+
+  const eventosAMostrar = eventos.slice(0, mostrarCantidad);
+
   return (
     <div
       className="py-4"
@@ -38,7 +43,6 @@ function Home() {
       }}
     >
       {/* Carrusel de publicidades */}
-
       <PublicidadCarousel publicidades={publicidades} />
 
       <div className="d-flex justify-content-between flex-wrap align-items-center mb-4">
@@ -46,39 +50,50 @@ function Home() {
       </div>
 
       <div className="row">
-        {eventos.length === 0 ? (
-          <p className="text-center text-muted w-100">
-            No hay eventos cargados.
-          </p>
+        {eventosAMostrar.length === 0 ? (
+          <p className="text-center text-muted w-100">No hay eventos cargados.</p>
         ) : (
-          eventos.map((evento) => (
-            <div
-              className="mb-4 col-md-6 col-lg-4 col-xl-3 d-flex"
-              key={evento.id}
-            >
+          eventosAMostrar.map((evento) => (
+            <div className="mb-4 col-md-6 col-lg-4 col-xl-3 d-flex" key={evento.id}>
               <EventoCard evento={evento} />
             </div>
           ))
         )}
       </div>
+
+      {mostrarCantidad < eventos.length && (
+        <div className="text-center mb-4">
+          <button
+            className="btn btn-outline-warning mt-3"
+            onClick={() => setMostrarCantidad(mostrarCantidad + 8)}
+          >
+            Mostrar más
+          </button>
+        </div>
+      )}
+
       <div className="mt-5">
         <h2 className="text-secondary mb-4">Espacios culturales</h2>
-        <div className="row">
-          {lugares.length === 0 ? (
-            <p className="text-muted text-center w-100">
-              No hay espacios registrados.
-            </p>
-          ) : (
-            lugares.map((lugar) => (
-              <div
-                key={lugar.id}
-                className="mb-4 col-12 col-md-6 col-lg-6 col-xl-4 d-flex"
-              >
-                <LugarCard lugar={lugar} />
-              </div>
-            ))
-          )}
-        </div>
+
+        {lugares.length === 0 ? (
+          <p className="text-muted text-center w-100">No hay espacios registrados.</p>
+        ) : (
+          <>
+            {lugaresMunicipales.length > 0 && (
+              <>
+                <h4 className="text-warning mt-4 mb-3">Municipales</h4>
+                <LugarSlider lugares={lugaresMunicipales} />
+              </>
+            )}
+
+            {lugaresIndependientes.length > 0 && (
+              <>
+                <h4 className="text-warning mt-5 mb-3">Independientes</h4>
+                <LugarSlider lugares={lugaresIndependientes} />
+              </>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

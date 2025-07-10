@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Carousel } from "bootstrap";
 
 function PublicidadCarousel({ publicidades }) {
+  useEffect(() => {
+    if (publicidades.length > 0) {
+      const el = document.getElementById("publicidadCarousel");
+      if (el) {
+        new Carousel(el, {
+          interval: 3000,
+          ride: "carousel",
+          pause: false,
+        });
+      }
+    }
+  }, [publicidades]); // 👈 importante: se activa cuando se cargan las publicidades
+
   if (!publicidades.length) return null;
 
   return (
@@ -8,6 +22,8 @@ function PublicidadCarousel({ publicidades }) {
       id="publicidadCarousel"
       className="carousel slide my-5"
       data-bs-ride="carousel"
+      data-bs-interval="3000"
+      data-bs-pause="false"
     >
       <div className="carousel-inner rounded shadow">
         {publicidades.map((pub, idx) => (
@@ -34,6 +50,7 @@ function PublicidadCarousel({ publicidades }) {
           </div>
         ))}
       </div>
+
       {publicidades.length > 1 && (
         <>
           <button

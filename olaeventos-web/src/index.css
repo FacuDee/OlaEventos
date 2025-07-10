@@ -87,3 +87,66 @@ h4 img {
   transform: translateY(-5px);
   transition: transform 0.3s ease;
 }
+
+.slider-wrapper {
+  position: relative;
+}
+
+.scroll-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  scroll-snap-type: x mandatory;
+  padding: 0rem;
+  scroll-behavior: smooth;
+
+  /* Oculta scroll horizontal en todos los navegadores */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.lugar-slide {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  width: 100%;
+  max-width: 600px;
+}
+
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  /* background-color: var(--primary-color); */
+  border: none;
+  color: black;
+  font-size: 2rem;
+  width: 4rem;    
+  height: 4rem;  
+  padding: 0;   
+  z-index: 2;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(255, 204, 0, 0.4);
+  transition: background-color 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+}
+
+.slider-arrow:hover {
+  background-color: #ffdd33;
+  color: black;
+}
+
+.slider-arrow.left {
+  left: 0.5rem;
+}
+
+.slider-arrow.right {
+  right: 0.5rem;
+}

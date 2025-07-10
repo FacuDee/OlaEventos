@@ -8,6 +8,7 @@ function EditarEventoModal({ evento, onClose, onSave }) {
   const [lugares, setLugares] = useState([]);
   const [tipos, setTipos] = useState([]);
   const [mostrarExito, setMostrarExito] = useState(false);
+  const [mostrarExpiracion, setMostrarExpiracion] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:3000/lugares")
@@ -43,8 +44,14 @@ function EditarEventoModal({ evento, onClose, onSave }) {
           ...formData,
           lugarId: parseInt(formData.lugarId),
           tipoEventoId: parseInt(formData.tipoEventoId),
+          fecha: new Date(formData.fecha).toISOString(),
         }),
       });
+
+      if (res.status === 401) {
+        setMostrarExpiracion(true);
+        return;
+      }
 
       if (!res.ok) throw new Error("Error al editar evento");
       const actualizado = await res.json();
@@ -199,6 +206,18 @@ function EditarEventoModal({ evento, onClose, onSave }) {
             onClose();
           }}
           onCancelar={() => setMostrarExito(false)}
+        />
+      )}
+      {mostrarExpiracion && (
+        <ConfirmDialog
+          mensaje="Tu sesión ha expirado. Por favor, volvé a iniciar sesión."
+          soloConfirmar={true}
+          onConfirmar={() => {
+            localStorage.removeItem("token");
+            setMostrarExpiracion(false);
+            window.location.href = "/login";
+          }}
+          onCancelar={() => setMostrarExpiracion(false)}
         />
       )}
     </>

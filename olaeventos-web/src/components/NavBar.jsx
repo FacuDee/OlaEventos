@@ -1,32 +1,75 @@
-import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
-import ConfirmDialog from './ConfirmDialog'; // Asegurate de tenerlo en la misma carpeta o ajustá la ruta
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import ConfirmDialog from "./ConfirmDialog";
+import Collapse from "bootstrap/js/dist/collapse";
 
 function NavBar() {
   const { isAuthenticated, logout } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [mostrarConfirmacionLogout, setMostrarConfirmacionLogout] = useState(false);
+  const [mostrarConfirmacionLogout, setMostrarConfirmacionLogout] =
+    useState(false);
+  const [menuAbierto, setMenuAbierto] = useState(false);
 
   const handleLogoutConfirmado = () => {
     logout();
     setMostrarConfirmacionLogout(false);
-    navigate('/');
+    cerrarMenu();
+    navigate("/");
+  };
+
+  useEffect(() => {
+    // Inicializamos el collapse pero sin toggle automático
+    const navCollapse = document.getElementById("navbarNav");
+    if (navCollapse) {
+      new Collapse(navCollapse, { toggle: false });
+    }
+  }, []);
+
+  const toggleMenu = () => {
+    const navbarCollapse = document.getElementById("navbarNav");
+    if (!navbarCollapse) return;
+
+    const collapse =
+      Collapse.getInstance(navbarCollapse) ||
+      new Collapse(navbarCollapse, { toggle: false });
+
+    if (menuAbierto) {
+      collapse.hide();
+    } else {
+      collapse.show();
+    }
+    setMenuAbierto(!menuAbierto);
+  };
+
+  const cerrarMenu = () => {
+    const navbarCollapse = document.getElementById("navbarNav");
+    if (!navbarCollapse) return;
+
+    const collapse =
+      Collapse.getInstance(navbarCollapse) ||
+      new Collapse(navbarCollapse, { toggle: false });
+    collapse.hide();
+    setMenuAbierto(false);
   };
 
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-        <Link className="navbar-brand text-danger fw-bold" to="/">
+        <Link
+          className="navbar-brand text-danger fw-bold"
+          to="/"
+          onClick={cerrarMenu}
+        >
           <span className="half-logo">
-            <img 
-              src="/event_icon.png" 
+            <img
+              src="/event_icon.png"
               alt=""
               style={{
                 height: "1em",
                 marginRight: "5px",
                 filter: "brightness(0) invert(1)",
-                verticalAlign: "middle"
+                verticalAlign: "middle",
               }}
             />
             Ola
@@ -37,29 +80,35 @@ function NavBar() {
         <button
           className="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
           aria-controls="navbarNav"
-          aria-expanded="false"
+          aria-expanded={menuAbierto}
           aria-label="Toggle navigation"
+          onClick={toggleMenu}
         >
           <span className="navbar-toggler-icon" />
         </button>
 
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto d-flex align-items-center">
+          <ul className="navbar-nav ms-auto align-items-center">
             {isAuthenticated ? (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/">Inicio</Link>
+                  <Link className="nav-link" to="/" onClick={cerrarMenu}>
+                    Inicio
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/admin">Administrar</Link>
+                  <Link className="nav-link" to="/admin" onClick={cerrarMenu}>
+                    Administrar
+                  </Link>
                 </li>
                 <li className="nav-item">
                   <button
                     className="btn btn-sm btn-outline-warning m-2"
-                    onClick={() => setMostrarConfirmacionLogout(true)}
+                    onClick={() => {
+                      setMostrarConfirmacionLogout(true);
+                      cerrarMenu();
+                    }}
                   >
                     Cerrar sesión
                   </button>
@@ -68,10 +117,18 @@ function NavBar() {
             ) : (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/login">Iniciar sesión</Link>
+                  <Link className="nav-link" to="/login" onClick={cerrarMenu}>
+                    Iniciar sesión
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/register">Registrarse</Link>
+                  <Link
+                    className="nav-link"
+                    to="/register"
+                    onClick={cerrarMenu}
+                  >
+                    Registrarse
+                  </Link>
                 </li>
               </>
             )}
