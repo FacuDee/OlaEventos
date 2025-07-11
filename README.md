@@ -70,7 +70,7 @@ git clone https://github.com/FacuDee/OlaEventos.git
 ```bash
 cd backend
 npm install
-npm run dev
+npm run start:dev
 ```
 
 ```bash
