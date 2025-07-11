@@ -39,7 +39,7 @@ function Admin() {
   return (
     <div className="container-fluid bg-dark text-white min-vh-100 p-4">
       <EventosAdminSection eventos={eventos} setEventos={setEventos} />
-      <hr className="text-secondary my-5" />
+      <hr className="text-warning my-5" />
       <LugaresAdminSection lugares={lugares} setLugares={setLugares} />
     </div>
   );

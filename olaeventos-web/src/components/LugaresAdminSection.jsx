@@ -60,8 +60,8 @@ function LugaresAdminSection({ lugares, setLugares }) {
 
   return (
     <>
-      <div className="d-flex align-items-center justify-content-between mb-3 mt-5">
-        <h3 className="text-secondary mb-0">Administrar Lugares</h3>
+      <div className="d-flex align-items-center justify-content-between mb-4 mt-5">
+        <h2 className="text-secondary mb-0">Administrar Lugares</h2>
         <button
           className="btn btn-outline-light"
           onClick={() => setMostrarFormularioLugar(!mostrarFormularioLugar)}
@@ -96,7 +96,8 @@ function LugaresAdminSection({ lugares, setLugares }) {
         />
       </div>
 
-      <div className="table-responsive">
+      {/* Tabla para pantallas medianas y grandes */}
+      <div className="table-responsive d-none d-md-block">
         <table className="table table-dark table-striped table-hover">
           <thead>
             <tr>
@@ -132,6 +133,40 @@ function LugaresAdminSection({ lugares, setLugares }) {
         </table>
       </div>
 
+      {/* Vista móvil */}
+      <div className="d-md-none">
+        {lugaresVisibles.map((lugar) => (
+          <div
+            key={lugar.id}
+            className="bg-dark text-white border rounded p-3 mb-3 shadow-sm"
+          >
+            <p>
+              <strong>Nombre:</strong> {lugar.nombre}
+            </p>
+            <p>
+              <strong>Dirección:</strong> {lugar.direccion}
+            </p>
+            <p>
+              <strong>Tipo:</strong> {lugar.tipo}
+            </p>
+            <div className="mt-2">
+              <button
+                className="btn btn-sm btn-secondary me-2"
+                onClick={() => setLugarAEditar(lugar)}
+              >
+                Editar
+              </button>
+              <button
+                className="btn btn-sm btn-danger"
+                onClick={() => setLugarAEliminar(lugar)}
+              >
+                Eliminar
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
       {/* Controles de paginación */}
       {totalPaginas > 1 && (
         <div className="d-flex justify-content-center mt-3 gap-2">
@@ -146,9 +181,7 @@ function LugaresAdminSection({ lugares, setLugares }) {
             <button
               key={i}
               className={`btn btn-sm ${
-                i + 1 === paginaActual
-                  ? "btn-warning"
-                  : "btn-outline-light"
+                i + 1 === paginaActual ? "btn-warning" : "btn-outline-light"
               }`}
               onClick={() => cambiarPagina(i + 1)}
             >

@@ -96,7 +96,7 @@ function EventosAdminSection({ eventos, setEventos }) {
         />
       </div>
 
-      <div className="table-responsive">
+      <div className="table-responsive d-none d-md-block">
         <table className="table table-dark table-striped table-hover">
           <thead>
             <tr>
@@ -144,6 +144,44 @@ function EventosAdminSection({ eventos, setEventos }) {
         </table>
       </div>
 
+      {/* Vista móvil */}
+      <div className="d-md-none">
+        {eventosVisibles.map((evento) => (
+          <div
+            key={evento.id}
+            className="bg-dark text-white border rounded p-3 mb-3 shadow-sm"
+          >
+            <p>
+              <strong>Título:</strong> {evento.titulo}
+            </p>
+            <p>
+              <strong>Fecha:</strong>{" "}
+              {new Date(evento.fecha).toLocaleString("es-AR")}
+            </p>
+            <p>
+              <strong>Lugar:</strong> {evento.lugar.nombre}
+            </p>
+            <p>
+              <strong>Tipo:</strong> {evento.tipoEvento.nombre}
+            </p>
+            <div className="mt-2">
+              <button
+                className="btn btn-sm btn-secondary me-2"
+                onClick={() => setEventoSeleccionado(evento)}
+              >
+                Editar
+              </button>
+              <button
+                className="btn btn-sm btn-danger"
+                onClick={() => setEventoAEliminar(evento)}
+              >
+                Eliminar
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
       {/* Controles de paginación */}
       {totalPaginas > 1 && (
         <div className="d-flex justify-content-center mt-3 gap-2">
@@ -158,9 +196,7 @@ function EventosAdminSection({ eventos, setEventos }) {
             <button
               key={i}
               className={`btn btn-sm ${
-                i + 1 === paginaActual
-                  ? "btn-warning"
-                  : "btn-outline-light"
+                i + 1 === paginaActual ? "btn-warning" : "btn-outline-light"
               }`}
               onClick={() => cambiarPagina(i + 1)}
             >

@@ -83,7 +83,7 @@ function Register() {
               required
             />
           </div>
-          <button className="btn-login btn btn-warning w-100">Registrarse</button>
+          <button className="btn-login btn btn-danger w-100">Registrarse</button>
           <div className="text-center mt-3">
             <span>¿Ya tienes cuenta? </span>
             <Link to="/login" className="text-warning ">

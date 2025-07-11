@@ -79,7 +79,7 @@ function Login() {
               autoComplete="current-password"
             />
           </div>
-          <button className="btn-login btn btn-warning w-100">Ingresar</button>
+          <button className="btn-login btn btn-danger w-100">Ingresar</button>
           <div className="text-center mt-3">
             <span>¿No tienes cuenta? </span>
             <Link to="/register" className="text-warning ">

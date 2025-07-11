@@ -46,7 +46,7 @@ function Home() {
       }}
     >
       {/* Carrusel de publicidades */}
-      <PublicidadCarousel publicidades={publicidades} />
+      {/* <PublicidadCarousel publicidades={publicidades} /> */}
 
       <div className="d-flex justify-content-between flex-wrap align-items-center mb-4">
         <h1 className="text-secondary">Agenda Cultural de Olavarría</h1>
@@ -81,7 +81,7 @@ function Home() {
       )}
 
       <div className="mt-5">
-        <h2 className="text-secondary mb-4">Espacios culturales</h2>
+        <h1 className="text-secondary mb-4">Espacios culturales</h1>
 
         {lugares.length === 0 ? (
           <p className="text-muted text-center w-100">

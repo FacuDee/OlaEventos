@@ -68,9 +68,9 @@ h4 img {
   color: var(--primary-color);
 }
 
-.btn-login {
+/* .btn-login {
   background-color: var(--primary-color);
-}
+} */
 
 .evento-img {
   height: 200px;
@@ -149,4 +149,8 @@ h4 img {
 
 .slider-arrow.right {
   right: 0.5rem;
+}
+
+hr {
+  opacity: 0.5;
 }
