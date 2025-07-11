@@ -65,18 +65,21 @@ Para acceder al panel de administración, debés contar con un token JWT válido
 git clone https://github.com/FacuDee/OlaEventos.git
 ```
 
-2. Ejecuta el backend (olaeventos-api):
+2. Ingresa a los proyectos:
 
 ```bash
-git npm run start:dev
+cd backend
+npm install
+npm run dev
 ```
-
-3. Ejecuta el frontend (olaeventos-web):
 
 ```bash
-git npm run dev
+cd frontend
+npm install
+npm run dev
+
 ```
 
-4. Corre el programa en el navegador
+3. Corre el programa en el navegador
 
 

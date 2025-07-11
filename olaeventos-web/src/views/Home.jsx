@@ -46,7 +46,7 @@ function Home() {
       }}
     >
       {/* Carrusel de publicidades */}
-      {/* <PublicidadCarousel publicidades={publicidades} /> */}
+      <PublicidadCarousel publicidades={publicidades} />
 
       <div className="d-flex justify-content-between flex-wrap align-items-center mb-4">
         <h1 className="text-secondary">Agenda Cultural de Olavarría</h1>
