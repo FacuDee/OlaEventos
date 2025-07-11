@@ -1,4 +1,4 @@
-# 🎭 OlaEventos - Plataforma de Gestión de Eventos y Espacios Culturales
+# OlaEventos - Plataforma de Gestión de Eventos y Espacios Culturales
 
 ![Captura de pantalla de la app](./images/capturaReadme.JPG)
 
@@ -40,25 +40,6 @@
 
 ---
 
-## 🗂️ Estructura del proyecto
-
-📁 backend/
-├── controllers/
-├── models/
-├── routes/
-└── index.js
-
-📁 frontend/
-├── components/
-│ ├── EventosAdminSection.jsx
-│ ├── LugaresAdminSection.jsx
-│ └── ...
-├── views/
-├── App.jsx
-└── main.jsx
-
----
-
 ## 🔐 Acceso al panel de administración
 
 Para acceder al panel de administración, debés contar con un token JWT válido generado por el backend al iniciar sesión.
@@ -82,3 +63,20 @@ Para acceder al panel de administración, debés contar con un token JWT válido
 
 ```bash
 git clone https://github.com/FacuDee/OlaEventos.git
+```
+
+2. Ejecuta el backend (olaeventos-api):
+
+```bash
+git npm run start:dev
+```
+
+3. Ejecuta el frontend (olaeventos-web):
+
+```bash
+git npm run dev
+```
+
+4. Corre el programa en el navegador
+
+
