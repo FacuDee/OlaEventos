@@ -68,13 +68,13 @@ git clone https://github.com/FacuDee/OlaEventos.git
 2. Ejecuta el backend (olaeventos-api):
 
 ```bash
-git npm run start:dev
+npm run start:dev
 ```
 
 3. Ejecuta el frontend (olaeventos-web):
 
 ```bash
-git npm run dev
+npm run dev
 ```
 
 4. Corre el programa en el navegador
