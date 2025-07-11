@@ -19,6 +19,7 @@ model Evento {
   fecha        DateTime
   imagenUrl    String
   linkEntrada  String
+  flyerUrl     String?
   tipoEvento   TipoEvento @relation(fields: [tipoEventoId], references: [id])
   tipoEventoId Int
   lugar        Lugar      @relation(fields: [lugarId], references: [id])

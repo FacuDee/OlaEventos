@@ -1,6 +1,6 @@
 import React from "react";
 
-function EventoCard({ evento }) {
+function EventoCard({ evento, onFlyerClick }) {
   const fechaFormateada = new Date(evento.fecha).toLocaleString("es-AR", {
     weekday: "short",
     day: "numeric",
@@ -10,6 +10,12 @@ function EventoCard({ evento }) {
     minute: "2-digit",
   });
 
+  const handleCardClick = () => {
+    if (evento.flyerUrl) {
+      onFlyerClick(evento.flyerUrl);
+    }
+  };
+
   return (
     <div className="col d-flex">
       <div
@@ -18,18 +24,21 @@ function EventoCard({ evento }) {
           backgroundColor: "#222",
           color: "#eee",
           transition: "transform 0.2s ease, box-shadow 0.2s ease",
-          cursor: "pointer",
+          cursor: evento.flyerUrl ? "pointer" : "default",
         }}
+        onClick={handleCardClick}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = "translateY(-5px) scale(1.01)";
-          e.currentTarget.style.boxShadow = "0 8px 20px rgba(255, 153, 0, 0.2)";
+          e.currentTarget.style.boxShadow =
+            "0 8px 20px rgba(255, 153, 0, 0.2)";
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = "none";
-          e.currentTarget.style.boxShadow = "0 4px 10px rgba(0, 0, 0, 0.2)";
+          e.currentTarget.style.boxShadow =
+            "0 4px 10px rgba(0, 0, 0, 0.2)";
         }}
       >
-        {/* ✅ Etiqueta diagonal */}
+        {/* Etiqueta fecha */}
         <div
           className="position-absolute text-white bg-danger fw-bold"
           style={{
@@ -79,6 +88,7 @@ function EventoCard({ evento }) {
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-secondary w-100"
+              onClick={(e) => e.stopPropagation()} // 👈 importante para evitar abrir flyer
             >
               COMPRÁ TU ENTRADA
             </a>

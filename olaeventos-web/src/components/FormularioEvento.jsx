@@ -146,6 +146,7 @@ function FormularioEvento({ onEventoCreado }) {
             name="imagenUrl"
             value={formData.imagenUrl}
             onChange={handleChange}
+            placeholder="https://..."
             required
           />
         </div>
@@ -158,7 +159,20 @@ function FormularioEvento({ onEventoCreado }) {
             name="linkEntrada"
             value={formData.linkEntrada}
             onChange={handleChange}
+            placeholder="https://..."
             required
+          />
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Flyer (URL)</label>
+          <input
+            type="url"
+            className="form-control bg-dark text-white border-secondary"
+            name="flyerUrl"
+            value={formData.flyerUrl}
+            onChange={handleChange}
+            placeholder="https://..."
           />
         </div>
 

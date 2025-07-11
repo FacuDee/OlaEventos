@@ -14,6 +14,7 @@ export class EventoService {
           fecha: new Date(data.fecha),
           imagenUrl: data.imagenUrl,
           linkEntrada: data.linkEntrada,
+          flyerUrl: data.flyerUrl,
           lugar: {
             connect: {
               id: Number(data.lugarId),
@@ -47,6 +48,7 @@ export class EventoService {
           fecha: new Date(data.fecha),
           imagenUrl: data.imagenUrl,
           linkEntrada: data.linkEntrada,
+          flyerUrl: data.flyerUrl,
           lugar: { connect: { id: Number(data.lugarId) } },
           tipoEvento: { connect: { id: Number(data.tipoEventoId) } },
         },

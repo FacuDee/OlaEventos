@@ -8,6 +8,7 @@ function Home() {
   const [publicidades, setPublicidades] = useState([]);
   const [lugares, setLugares] = useState([]);
   const [mostrarCantidad, setMostrarCantidad] = useState(8);
+  const [flyerUrl, setFlyerUrl] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:3000/eventos")
@@ -63,7 +64,7 @@ function Home() {
               className="mb-4 col-md-6 col-lg-4 col-xl-3 d-flex"
               key={evento.id}
             >
-              <EventoCard evento={evento} />
+              <EventoCard evento={evento} onFlyerClick={setFlyerUrl} />
             </div>
           ))
         )}
@@ -112,6 +113,58 @@ function Home() {
           </>
         )}
       </div>
+
+      {flyerUrl && (
+        <div
+          onClick={() => setFlyerUrl(null)}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0,0,0,0.9)",
+            zIndex: 9999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backdropFilter: "blur(4px)",
+            animation: "fadeIn 0.3s ease-in-out",
+          }}
+        >
+          {/* Cierre con X */}
+          <button
+            onClick={() => setFlyerUrl(null)}
+            style={{
+              position: "absolute",
+              top: "20px",
+              right: "30px",
+              fontSize: "2rem",
+              color: "white",
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              zIndex: 10000,
+            }}
+          >
+            ❌
+          </button>
+
+          {/* Imagen del flyer */}
+          <img
+            src={flyerUrl}
+            alt="Flyer del evento"
+            style={{
+              maxWidth: "90%",
+              maxHeight: "90%",
+              borderRadius: "10px",
+              boxShadow: "0 0 20px rgba(255,255,255,0.3)",
+              animation: "zoomIn 0.3s ease-in-out",
+            }}
+            onClick={(e) => e.stopPropagation()} // Evita cerrar al hacer clic en la imagen
+          />
+        </div>
+      )}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 // create-evento.dto.ts
-import { IsString, IsInt, IsUrl, IsDateString } from 'class-validator';
+import { IsString, IsInt, IsUrl, IsDateString, IsOptional } from 'class-validator';
 
 export class CreateEventoDto {
   @IsString()
@@ -13,6 +13,10 @@ export class CreateEventoDto {
 
   @IsUrl()
   linkEntrada: string;
+
+  @IsUrl()
+  @IsOptional()
+  flyerUrl?: string;
 
   @IsInt()
   tipoEventoId: number;

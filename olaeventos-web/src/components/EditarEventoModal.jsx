@@ -136,7 +136,20 @@ function EditarEventoModal({ evento, onClose, onSave }) {
                     name="linkEntrada"
                     value={formData.linkEntrada}
                     onChange={handleChange}
+                    placeholder="https://..."
                     required
+                  />
+                </div>
+
+                <div className="mb-3">
+                  <label className="form-label">Flyer (URL)</label>
+                  <input
+                    type="url"
+                    className="form-control bg-dark text-white border-secondary"
+                    name="flyerUrl"
+                    value={formData.flyerUrl || ""}
+                    onChange={handleChange}
+                    placeholder="https://..."
                   />
                 </div>
 
