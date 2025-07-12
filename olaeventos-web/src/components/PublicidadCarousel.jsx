@@ -13,7 +13,7 @@ function PublicidadCarousel({ publicidades }) {
         });
       }
     }
-  }, [publicidades]); // 👈 importante: se activa cuando se cargan las publicidades
+  }, [publicidades]); // Se activa cuando se cargan las publicidades
 
   if (!publicidades.length) return null;
 

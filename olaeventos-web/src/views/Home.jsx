@@ -31,6 +31,7 @@ function Home() {
     (l) => l.tipo === "Independiente"
   );
   const lugaresPrivados = lugares.filter((lugar) => lugar.tipo === "Privado");
+  const lugaresClubes = lugares.filter((lugar) => lugar.tipo === "Club");
 
   const eventosAMostrar = eventos.slice(0, mostrarCantidad);
 
@@ -108,6 +109,13 @@ function Home() {
               <>
                 <h4 className="text-warning mt-5 mb-3">Privados</h4>
                 <LugarSlider lugares={lugaresPrivados} />
+              </>
+            )}
+
+            {lugaresClubes.length > 0 && (
+              <>
+                <h4 className="text-warning mt-5 mb-3">Clubes</h4>
+                <LugarSlider lugares={lugaresClubes} />
               </>
             )}
           </>

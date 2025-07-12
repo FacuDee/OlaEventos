@@ -84,9 +84,9 @@ function Register() {
             />
           </div>
           <button className="btn-login btn btn-danger w-100">Registrarse</button>
-          <div className="text-center mt-3">
+          <div className="text-center text-secondary mt-3">
             <span>¿Ya tienes cuenta? </span>
-            <Link to="/login" className="text-warning ">
+            <Link to="/login" className="text-light ">
               Inicia sesión
             </Link>
           </div>

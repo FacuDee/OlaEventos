@@ -192,7 +192,7 @@ function EditarEventoModal({ evento, onClose, onSave }) {
 
               <div
                 className="modal-footer"
-                style={{ background: "#23272b", borderTop: "1px solid #444" }}
+                style={{ background: "#23272b", borderTop: "none" }}
               >
                 <button
                   type="button"

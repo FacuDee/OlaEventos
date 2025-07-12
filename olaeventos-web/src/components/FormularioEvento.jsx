@@ -152,7 +152,7 @@ function FormularioEvento({ onEventoCreado }) {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Link entrada</label>
+          <label className="form-label">Link Entrada (URL)</label>
           <input
             type="url"
             className="form-control bg-dark text-white border-secondary"

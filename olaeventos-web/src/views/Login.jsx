@@ -80,9 +80,9 @@ function Login() {
             />
           </div>
           <button className="btn-login btn btn-danger w-100">Ingresar</button>
-          <div className="text-center mt-3">
+          <div className="text-center text-secondary mt-3">
             <span>¿No tienes cuenta? </span>
-            <Link to="/register" className="text-warning ">
+            <Link to="/register" className="text-light ">
               Regístrate
             </Link>
           </div>
