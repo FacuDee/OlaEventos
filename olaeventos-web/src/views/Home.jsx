@@ -41,7 +41,7 @@ function Home() {
       style={{
         backgroundColor: "#121212",
         minHeight: "100vh",
-        fontFamily: "Montserrat, sans-serif",
+        fontFamily: "Manrope, Montserrat, sans-serif",
         color: "white",
         paddingLeft: "2vw",
         paddingRight: "2vw",
@@ -56,7 +56,7 @@ function Home() {
 
       <div className="row">
         {eventosAMostrar.length === 0 ? (
-          <p className="text-center text-muted w-100">
+          <p className="text-center text-light w-100">
             No hay eventos cargados.
           </p>
         ) : (
@@ -86,7 +86,7 @@ function Home() {
         <h1 className="text-secondary mb-4">Espacios culturales</h1>
 
         {lugares.length === 0 ? (
-          <p className="text-muted text-center w-100">
+          <p className="text-light text-center w-100">
             No hay espacios registrados.
           </p>
         ) : (

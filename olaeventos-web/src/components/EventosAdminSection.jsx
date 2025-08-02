@@ -100,11 +100,11 @@ function EventosAdminSection({ eventos, setEventos }) {
         <table className="table table-dark table-striped table-hover">
           <thead>
             <tr>
-              <th>Título</th>
-              <th>Fecha</th>
-              <th>Lugar</th>
-              <th>Tipo</th>
-              <th>Acciones</th>
+              <th className="text-warning">Título</th>
+              <th className="text-warning">Fecha</th>
+              <th className="text-warning">Lugar</th>
+              <th className="text-warning">Tipo</th>
+              <th className="text-warning">Acciones</th>
             </tr>
           </thead>
           <tbody>

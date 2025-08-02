@@ -101,10 +101,10 @@ function LugaresAdminSection({ lugares, setLugares }) {
         <table className="table table-dark table-striped table-hover">
           <thead>
             <tr>
-              <th>Nombre</th>
-              <th>Dirección</th>
-              <th>Tipo</th>
-              <th>Acciones</th>
+              <th className="text-warning">Nombre</th>
+              <th className="text-warning">Dirección</th>
+              <th className="text-warning">Tipo</th>
+              <th className="text-warning">Acciones</th>
             </tr>
           </thead>
           <tbody>
