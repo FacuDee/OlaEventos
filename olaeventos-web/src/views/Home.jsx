@@ -39,10 +39,10 @@ function Home() {
     <div
       className="py-4"
       style={{
-        backgroundColor: "#121212",
+        backgroundColor: "var(--bg-color)",
         minHeight: "100vh",
-        fontFamily: "Manrope, Montserrat, sans-serif",
-        color: "white",
+        fontFamily: "Montserrat, sans-serif",
+        color: "var(--text-color)",
         paddingLeft: "2vw",
         paddingRight: "2vw",
       }}

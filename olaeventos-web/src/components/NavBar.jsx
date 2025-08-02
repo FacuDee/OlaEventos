@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 import ConfirmDialog from "./ConfirmDialog";
 import Collapse from "bootstrap/js/dist/collapse";
 
 function NavBar() {
   const { isAuthenticated, logout } = useContext(AuthContext);
+  const { isDarkMode, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const [mostrarConfirmacionLogout, setMostrarConfirmacionLogout] =
     useState(false);
@@ -55,7 +57,7 @@ function NavBar() {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+      <nav className={`navbar navbar-expand-lg px-4 ${isDarkMode ? 'navbar-dark bg-dark' : 'navbar-light bg-light'}`}>
         <Link
           className="navbar-brand text-danger fw-bold"
           to="/"
@@ -90,6 +92,16 @@ function NavBar() {
 
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto align-items-center">
+            {/* Theme Toggle Button */}
+            <li className="nav-item me-2">
+              <button
+                className={`btn btn-sm ${isDarkMode ? 'btn-outline-light' : 'btn-outline-dark'}`}
+                onClick={toggleTheme}
+                title={isDarkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+              >
+                {isDarkMode ? '☀️' : '🌙'}
+              </button>
+            </li>
             {isAuthenticated ? (
               <>
                 <li className="nav-item">
